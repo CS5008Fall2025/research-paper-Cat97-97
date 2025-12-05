@@ -1,0 +1,23 @@
+# Benchmark Bloom Filter (seed=42)
+# Writing CSV to data/results.csv
+n= 1000 m=   9586 k= 7 emp=0.00900 theory=0.01003 elapsed=0.009s
+n= 2000 m=  19171 k= 7 emp=0.00880 theory=0.01004 elapsed=0.011s
+n= 3000 m=  28756 k= 7 emp=0.01140 theory=0.01004 elapsed=0.014s
+n= 4000 m=  38341 k= 7 emp=0.01320 theory=0.01004 elapsed=0.016s
+n= 5000 m=  47926 k= 7 emp=0.00920 theory=0.01004 elapsed=0.018s
+n= 6000 m=  57511 k= 7 emp=0.00860 theory=0.01004 elapsed=0.021s
+n= 7000 m=  67096 k= 7 emp=0.01020 theory=0.01004 elapsed=0.023s
+n= 8000 m=  76681 k= 7 emp=0.00960 theory=0.01004 elapsed=0.025s
+n= 9000 m=  86266 k= 7 emp=0.01120 theory=0.01004 elapsed=0.028s
+n=10000 m=  95851 k= 7 emp=0.00880 theory=0.01004 elapsed=0.029s
+n=11000 m= 105436 k= 7 emp=0.00900 theory=0.01004 elapsed=0.032s
+n=12000 m= 115021 k= 7 emp=0.01180 theory=0.01004 elapsed=0.034s
+n=13000 m= 124606 k= 7 emp=0.00720 theory=0.01004 elapsed=0.035s
+n=14000 m= 134191 k= 7 emp=0.01020 theory=0.01004 elapsed=0.038s
+n=15000 m= 143776 k= 7 emp=0.01240 theory=0.01004 elapsed=0.042s
+n=16000 m= 153361 k= 7 emp=0.01060 theory=0.01004 elapsed=0.043s
+n=17000 m= 162946 k= 7 emp=0.01000 theory=0.01004 elapsed=0.045s
+n=18000 m= 172532 k= 7 emp=0.00980 theory=0.01004 elapsed=0.048s
+n=19000 m= 182117 k= 7 emp=0.01100 theory=0.01004 elapsed=0.051s
+n=20000 m= 191702 k= 7 emp=0.00980 theory=0.01004 elapsed=0.053s
+Done.
