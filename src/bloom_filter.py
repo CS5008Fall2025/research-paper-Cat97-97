@@ -40,14 +40,16 @@ class BloomFilter:
 
 	# --------- Bit operations ----------
 	def _set_bit(self, bit_index: int) -> None:
-		byte_index = bit_index >> 3
-		offset = bit_index & 7
-		self._bits[byte_index] |= (1 << offset)
+		"""Set the bit at bit_index to 1."""
+		byte_index = bit_index >> 3  # Divide by 8 to find the byte
+		offset = bit_index & 7       # Modulo 8 to find bit position within byte
+		self._bits[byte_index] |= (1 << offset)  # OR with bitmask to set bit
 
 	def _get_bit(self, bit_index: int) -> bool:
-		byte_index = bit_index >> 3
-		offset = bit_index & 7
-		return (self._bits[byte_index] >> offset) & 1 == 1
+		"""Return True if the bit at bit_index is 1, False otherwise."""
+		byte_index = bit_index >> 3  # Divide by 8 to find the byte
+		offset = bit_index & 7       # Modulo 8 to find bit position within byte
+		return (self._bits[byte_index] >> offset) & 1 == 1  # Shift and mask to extract bit
 
 	# --------- Hashing ----------
 	def _hashes(self, data: Union[str, bytes]) -> Iterator[int]:

@@ -12,6 +12,8 @@ from src.bloom_filter import BloomFilter
 
 
 def run_trial(n: int, target_p: float, probes: int, rng: random.Random) -> Tuple[int, int, int, float, float, float]:
+	"""Run a single benchmark trial: insert n items, test probes negative queries."""
+	# Size the filter for n items and target false positive rate
 	m = BloomFilter.size_for(n, target_p)
 	k = BloomFilter.optimal_num_hashes(m, n)
 	bf = BloomFilter(m, k)
@@ -22,12 +24,12 @@ def run_trial(n: int, target_p: float, probes: int, rng: random.Random) -> Tuple
 	bf.insert_many(values)
 	t_insert = time.perf_counter() - t0
 
-	# Probe negatives
+	# Probe with negative queries (items not inserted) to measure false positive rate
 	false_pos = 0
 	t0 = time.perf_counter()
 	for i in range(probes):
 		q = f"probe-{i}-{rng.randrange(1_000_000_000)}"
-		if q in bf and q not in values:
+		if q in bf and q not in values:  # False positive
 			false_pos += 1
 	t_query = time.perf_counter() - t0
 	emp = false_pos / float(probes)

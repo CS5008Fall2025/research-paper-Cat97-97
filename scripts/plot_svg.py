@@ -8,6 +8,7 @@ from typing import List, Tuple
 
 
 def read_csv(path: str) -> Tuple[List[int], List[float], List[float]]:
+	"""Parse CSV and extract n, empirical_p, and theory_p columns."""
 	ns: List[int] = []
 	emp: List[float] = []
 	theory: List[float] = []
