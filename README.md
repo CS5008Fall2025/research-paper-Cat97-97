@@ -46,7 +46,7 @@ p \approx \bigl(1 - e^{-k n / m}\bigr)^{k}.
 \[
 m = -\frac{n \ln p}{(\ln 2)^2}.
 \]
-- Correctness: No false negatives. If an element was inserted, all of its \(k\) positions were set to 1 during insertion; queries only return NOT_PRESENT if they find any 0, which cannot happen for inserted elements. False positives occur only when unrelated insertions incidentally set all \(k\) positions used by the queried element.
+- Correctness (sketch): No false negatives. If an element was inserted, all of its \(k\) positions were set to 1 during insertion; queries only return NOT_PRESENT if they find any 0, which cannot happen for inserted elements. False positives occur only when unrelated insertions incidentally set all \(k\) positions used by the queried element.
 
 ## Empirical Analysis
 We empirically validate the false positive probability against the theoretical estimate. For \(n\) from 1,000 to 20,000, we sized \(m\) for a target \(p = 0.01\) and used \(k = \text{round}(\tfrac{m}{n}\ln 2)\). For each \(n\), we inserted \(n\) random strings and tested 5,000 negative queries. The script writes `data/results.csv`, and we render a dependency-free SVG plot at `plots/false_positive.svg`.
@@ -55,7 +55,7 @@ We empirically validate the false positive probability against the theoretical e
 - Figure: see `plots/false_positive.svg`
 - Method: `scripts/benchmark_bloom_filter.py`, `scripts/plot_svg.py`
 
-As expected, empirical rates closely follow theory \(p \approx \bigl(1 - e^{-k n / m}\bigr)^k\) (minor deviations are due to randomness and finite sample size). We also record elapsed time across insertion and queries to show operations remain near-constant per element for fixed \(k\).
+As expected, empirical rates closely follow theory \(p \approx \bigl(1 - e^{-k n / m}\bigr)^k\) (minor deviations are due to randomness and finite sample size). We also record elapsed time across insertion and queries to show operations remain near-constant per element for fixed \(k\). Limitations/bias: Python + SHA-256 hashing adds constant-factor overhead vs. lower-level languages; results depend slightly on the RNG seed and finite probe counts, but the curve tracks theory within expected variance.
 
 ## Application
 Common use cases include:
@@ -78,6 +78,7 @@ Challenges and decisions:
 - Hashing: To avoid multiple heavy hash computations, we use double hashing (Kirsch–Mitzenmacher) with two 64-bit values derived from SHA-256 [3].
 - Bitset: We use `bytearray` for a compact in-memory bit array and implement get/set bit operations manually for portability.
 - Sizing: Helpers expose \(m\) and \(k\) formulas to meet a target \(p\).
+- Quality checks: Unit tests cover membership, absence of false negatives, empirical vs. theoretical rates, and serialization round-trip (`tests/test_bloom_filter.py`). A sample CLI demo run is captured in `data/sample_run.txt`.
 
 Key snippet (double hashing index generation):
 ```
